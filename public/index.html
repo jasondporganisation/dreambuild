@@ -640,10 +640,49 @@ let enneaScores = {};
 let searchFilters = { query: '', type: 'all' };
 
 window.addEventListener('DOMContentLoaded', () => {
+  seedInitialData();
   renderEnneagramQuiz();
   renderJobs();
   checkSession();
 });
+
+// Seed with default data so first-time visitors see jobs immediately
+function seedInitialData() {
+  if (localStorage.getItem('dreambuild_seeded')) return;
+
+  const employers = [
+    {
+      id: 'dream-planners',
+      company: 'Dream Planners (Great Eastern)',
+      name: 'Jason Ng',
+      email: 'jason@dreambuild.sg',
+      phone: '+65 9123 4567',
+      description: 'Dream Planners is a leading financial advisory team under Great Eastern Singapore. We specialize in employee benefits, group insurance, and wealth planning for corporate clients across Singapore.',
+      password: '***'
+    }
+  ];
+
+  const jobs = [
+    {
+      id: 'corp-sales-exec',
+      employerId: 'dream-planners',
+      company: 'Dream Planners (Great Eastern)',
+      title: 'Corporate Sales Executive (Employee Benefits & Group Insurance)',
+      type: 'Full-time',
+      salary: '$3,500 - $6,000 + Commission',
+      location: 'Singapore (Central)',
+      desc: 'We are looking for a driven Corporate Sales Executive to join our team at Dream Planners (Great Eastern). You will be responsible for driving employee benefits and group insurance sales to corporate clients across Singapore.\n\nKey Responsibilities:\n- Prospect and acquire new corporate clients for employee benefits and group insurance solutions\n- Conduct client needs analysis and propose customized group insurance plans (medical, hospitalization, accident, critical illness, and wellness programs)\n- Manage the full sales cycle from lead generation to closing and account handover\n- Build and maintain strong relationships with HR directors, business owners, and decision-makers\n- Work closely with insurers to negotiate competitive group rates and plan designs\n- Prepare proposals, presentations, and renewal strategies for existing corporate accounts\n- Achieve monthly and quarterly sales targets\n\nRequirements:\n- Minimum Diploma in any field\n- 1-3 years of B2B sales experience (insurance or financial services preferred)\n- CMFAS certification (or willingness to obtain)\n- Strong communication, negotiation, and presentation skills\n- Self-motivated with a hunter mentality\n- Ability to work independently and as part of a team\n\nWhat We Offer:\n- Base salary + attractive commission structure\n- Comprehensive training and mentorship program\n- Career progression to Senior Corporate Sales Manager\n- Flexible working arrangements\n- Team incentives and overseas trips',
+      skills: 'sales, B2B, corporate, employee benefits, group insurance, client management, negotiation, presentation, relationship building, prospecting, financial services, CMFAS',
+      enneagram: [2, 3, 6, 8],
+      status: 'active',
+      createdAt: new Date('2026-05-04').toISOString()
+    }
+  ];
+
+  setData('dreambuild_employers', employers);
+  setData('dreambuild_jobs', jobs);
+  localStorage.setItem('dreambuild_seeded', 'true');
+}
 
 // =========== VIEWS ===========
 function showView(name) {
